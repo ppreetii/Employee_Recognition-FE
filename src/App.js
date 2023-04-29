@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Container } from "@material-ui/core";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-function App() {
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./components/Home/Home";
+import Reward from "./components/Reward/Reward";
+import Profile from "./components/Profile/Profile";
+import Task from "./components/Task/Task"
+import './App.css'
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Container maxWidth="lg" className="container">
+        <Navbar />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/reward" exact component={Reward} />
+          <Route path="/tasks/:id" exact component={Task} />
+          <Route path="/profile/:id" exact component={Profile} />
+        </Switch>
+      </Container>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
