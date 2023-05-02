@@ -22,7 +22,6 @@ export default makeStyles((theme) => ({
     padding: "10px 15px",
     transform: "translate(0px, 100px)",
     justifyContent: "center",
-    color: "white",
     margin: "0px",
   },
   typography: {

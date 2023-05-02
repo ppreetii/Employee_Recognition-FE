@@ -19,6 +19,7 @@ const App = () => {
           <Route path="/reward" exact component={Reward} />
           <Route path="/tasks/:id" exact component={Task} />
           <Route path="/profile/:id" exact component={Profile} />
+          <Route path="/profile/edit/:id" exact component={Profile} />
         </Switch>
       </Container>
     </BrowserRouter>

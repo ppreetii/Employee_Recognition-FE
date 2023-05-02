@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import  Avatar from "@material-ui/core/Avatar";
+import Avatar from "@material-ui/core/Avatar";
 import "react-datepicker/dist/react-datepicker.css";
 
 import "./styles.css";
@@ -32,20 +32,26 @@ const Reward = () => {
   };
 
   const formatDate = (selectedDate) => {
-  const timezoneOffset = selectedDate.getTimezoneOffset();
-  const year = selectedDate.getFullYear();
-  const month = selectedDate.getMonth() + 1;
-  const day = selectedDate.getDate();
+    const timezoneOffset = selectedDate.getTimezoneOffset();
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth() + 1;
+    const day = selectedDate.getDate();
 
-  return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T00:00:00.000${timezoneOffset < 0 ? '-' : '+'}${Math.abs(timezoneOffset / 60).toString().padStart(2, '0')}:00`;
-}
+    return `${year}-${month.toString().padStart(2, "0")}-${day
+      .toString()
+      .padStart(2, "0")}T00:00:00.000${
+      timezoneOffset < 0 ? "-" : "+"
+    }${Math.abs(timezoneOffset / 60)
+      .toString()
+      .padStart(2, "0")}:00`;
+  };
 
   const handleFindEmployeeOfDay = () => {
     if (selectedDateOfDay) {
       setIsLoadingOfDay(true);
       // const formattedDate = selectedDateOfDay.toISOString().slice(0, 10);
       const formattedDate = formatDate(selectedDateOfDay).slice(0, 10);
-      console.log(formatDate)
+      console.log(formatDate);
 
       fetch(
         `http://localhost:5000/api/v1.0/rewards/employee-of-the-day?date=${formattedDate}`
@@ -118,11 +124,11 @@ const Reward = () => {
         <div className="result-container">
           {employeeOfDay && (
             <div className="card-text">
-              <Avatar className="avatar" alt={employeeOfDay.name}>
-                {employeeOfDay.name[0]}
+              <Avatar className="avatar" alt={employeeOfDay?.name}>
+                {employeeOfDay?.name[0]}
               </Avatar>
-              <p>Name: {employeeOfDay.name}</p>
-              <p>Designation: {employeeOfDay.designation}</p>
+              <p>Name: {employeeOfDay?.name}</p>
+              <p>Designation: {employeeOfDay?.designation}</p>
             </div>
           )}
           {isLoadingOfDay && <p>Loading...</p>}
@@ -143,13 +149,18 @@ const Reward = () => {
             Find
           </button>
         </div>
-        {employeeOfWeek && (
-          <div className="card-text">
-            <p>Name: {employeeOfWeek.name}</p>
-            <p>Designation: {employeeOfWeek.designation}</p>
-          </div>
-        )}
-        {isLoadingOfWeek && <p>Loading...</p>}
+        <div className="result-container">
+          {employeeOfWeek && (
+            <div className="card-text">
+              <Avatar className="avatar" alt={employeeOfWeek?.name}>
+                {employeeOfWeek?.name[0]}
+              </Avatar>
+              <p>Name: {employeeOfWeek?.name}</p>
+              <p>Designation: {employeeOfWeek?.designation}</p>
+            </div>
+          )}
+          {isLoadingOfWeek && <p>Loading...</p>}
+        </div>
       </div>
 
       <div className="card">
@@ -166,14 +177,18 @@ const Reward = () => {
             Find
           </button>
         </div>
-
-        {employeeOfMonth && (
-          <div className="card-text">
-            <p>Name: {employeeOfMonth.name}</p>
-            <p>Designation: {employeeOfMonth.designation}</p>
-          </div>
-        )}
-        {isLoadingOfMonth && <p>Loading...</p>}
+        <div className="result-container">
+          {employeeOfMonth && (
+            <div className="card-text">
+              <Avatar className="avatar" alt={employeeOfMonth?.name}>
+                {employeeOfMonth?.name[0]}
+              </Avatar>
+              <p>Name: {employeeOfMonth?.name}</p>
+              <p>Designation: {employeeOfMonth?.designation}</p>
+            </div>
+          )}
+          {isLoadingOfMonth && <p>Loading...</p>}
+        </div>
       </div>
     </div>
   );

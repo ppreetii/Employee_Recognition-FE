@@ -1,26 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  paper: {
-    marginTop: "10px",
-    marginBottom: "10px",
-    paddingTop: "35px",
-    height: "550px",
-    borderRadius: "10px",
-    transform: "translate(0px, 100px)",
-    boxShadow:
-      "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
-    position: "relative",
-    // backgroundColor: "#738bdc",
-    // backgroundImage: "linear-gradient(315deg, #738bdc 0%, #48c3eb 74%)",
-  },
   div: {
     width: "70%",
     height: "580px",
-    margin: " 0 auto",
-    padding: "10px", 
+    padding: "10px",
     position: "relative",
-    background: "white",
     borderRadius: "10px",
     transform: "translate(0px, 100px)",
   },
@@ -30,7 +15,7 @@ export default makeStyles((theme) => ({
     margin: " 10px auto",
     padding: "10px",
     position: "relative",
-    fontSize: "100px"
+    fontSize: "100px",
   },
   typography: {
     margin: " 0 auto",
@@ -51,18 +36,53 @@ export default makeStyles((theme) => ({
     textAlign: "center",
     margin: "5px",
     padding: "10px",
-    fontSize: "20px"
-  },
-  hr: {
-    borderColor: "#007ea7",
+    fontSize: "20px",
   },
   spanDay: {
-    color: "blue"
+    color: "blue",
   },
   spanWeek: {
-    color: "Orange"
+    color: "Orange",
   },
   spanMonth: {
-    color: "Green"
+    color: "Green",
+  },
+  drawer: {
+    paddingTop: "35px",
+    width: "240px",
+    borderRadius: "10px",
+    transform: "translate(-150px, 90px)",
+    direction: "bottom",
+    margin: "0px 0px",
+  },
+  drawerList: {
+    display: "flex",
+    flexDirection: "column",
+    position: "relative",
+    margin: "10px",
+  },
+  heroContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  editDivContainer: {
+    width: "70%",
+    height: "580px",
+    padding: "10px",
+    borderRadius: "10px",
+    transform: "translate(0px, 130px)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "first baseline",
+    justifyContent: "center",
+  },
+  editTextField: {
+    margin: "10px",
+    width: "70%",
+  },
+  editBtnsDiv :{
+    display:"flex",
+    flexDirection: "row",
+    justifyContent: "center",
   }
 }));
