@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 import { Link, useLocation } from "react-router-dom";
 
 import useStyles from "./styles";
@@ -20,7 +21,7 @@ import axios from "axios";
 const Profile = (props) => {
   const location = useLocation();
   const classes = useStyles();
-  let id = props.match.params.id;
+  let id = props.match.params.id || 1;
 
   const [user, setUser] = useState({
     id: "id",
@@ -36,7 +37,13 @@ const Profile = (props) => {
     location.pathname.replace(":id", userId)
   );
   const [designation, setDesignation] = useState(user.designation);
+  const [designationSelected, setDesignationSelected] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
+  const handleAddClick = () => {
+    setCurrentPath(`/profile/create`);
+  };
   const handleEditClick = () => {
     setUserId(userId);
     setCurrentPath(`/profile/edit/${userId}`);
@@ -47,6 +54,16 @@ const Profile = (props) => {
   };
   const handleDesignationChange = (event) => {
     setDesignation(event.target.value);
+  };
+
+  const handleDesignationSelected = (event) => {
+    setDesignationSelected(event.target.value);
+  };
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handleSaveClick = () => {
@@ -62,6 +79,19 @@ const Profile = (props) => {
         console.log(err);
       });
   };
+  const handleProfileSaveClick = () => {
+    axios.post(`http://localhost:5000/api/v1.0/employees`, {
+      name, 
+      email,
+      designation: designationSelected
+    }).then(response =>{
+        setName("");
+        setEmail("");
+        setDesignationSelected("")
+    }).catch(err => {
+      console.log(err)
+    })
+  }
   const handleDeleteClick = () => {
     axios
       .patch(`http://localhost:5000/api/v1.0/employees/${userId}`, {
@@ -126,6 +156,23 @@ const Profile = (props) => {
             ></EditIcon>
             <ListItemText primary="Edit" sx={{ opacity: 0 }} />
           </ListItem>
+          <ListItem
+            key="Add"
+            sx={{ display: "block" }}
+            style={{ cursor: "pointer" }}
+            component={Link}
+            to="/profile/create"
+            onClick={handleAddClick}
+          >
+            <AddIcon
+              sx={{
+                minWidth: 0,
+                mr: "auto",
+                justifyContent: "center",
+              }}
+            ></AddIcon>
+            <ListItemText primary="Add" sx={{ opacity: 0 }} />
+          </ListItem>
         </List>
       </Drawer>
       {currentPath === `/profile/edit/${userId}` ? (
@@ -185,6 +232,45 @@ const Profile = (props) => {
             </div>
           </Box>
         </>
+      ) : currentPath === `/profile/create` ? (
+        <Box
+          component="form"
+          className={classes.div}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            className={classes.editTextField}
+            value = {name}
+            variant="outlined"
+            label="Name"
+            onChange={handleNameChange}
+          />
+          <TextField
+            className={classes.editTextField}
+            value = {email}
+            variant="outlined"
+            label="Email"
+            onChange={handleEmailChange}
+          />
+          <TextField
+            className={classes.editTextField}
+            value={designationSelected}
+            variant="outlined"
+            label="Designation"
+            onChange={handleDesignationSelected}
+          />
+         
+          <Button
+            className={classes.editBtnsDiv}
+            variant="contained"
+            color="primary"
+            style={{ margin: "10px" }}
+            onClick={handleProfileSaveClick}
+          >
+            Save
+          </Button>
+        </Box>
       ) : (
         <div className={classes.div}>
           <Avatar className={classes.avatar} alt={user.name}>
